@@ -6,7 +6,7 @@ A small library for asking questions about types.
 /// Example serialize function that uses `itis` to serialize ArrayList and ArrayHashMap.
 pub fn serialize(writer: anytype, value: anytype) !void {
     const T = @TypeOf(value);
-    if (itis.anArrayList(T)) {
+    if (comptime itis.anArrayList(T)) {
         try writer.writeAll("[");
         for (value.items) |item, i| {
             if (i != 0)
@@ -15,7 +15,7 @@ pub fn serialize(writer: anytype, value: anytype) !void {
         }
         return writer.writeAll("]");
     }
-    if (itis.anArrayHashMap(T)) {
+    if (comptime itis.anArrayHashMap(T)) {
         try writer.writeAll("{");
         for (value.keys()) |key, i| {
             const v = value.values()[i];
