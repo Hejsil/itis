@@ -251,7 +251,7 @@ const HashMapInfo = struct {
         if (!@hasField(T.KV, "key") or !@hasField(T.KV, "value"))
             return null;
 
-        const Context = std.meta.fieldInfo(T, .ctx).field_type;
+        const Context = std.meta.fieldInfo(T, .ctx).type;
         if (!@hasDecl(Context, "hash"))
             return null;
 
@@ -262,8 +262,8 @@ const HashMapInfo = struct {
         };
 
         return HashMapInfo{
-            .K = std.meta.fieldInfo(T.KV, .key).field_type,
-            .V = std.meta.fieldInfo(T.KV, .value).field_type,
+            .K = std.meta.fieldInfo(T.KV, .key).type,
+            .V = std.meta.fieldInfo(T.KV, .value).type,
             .Context = Context,
             .Hash = Hash,
         };
